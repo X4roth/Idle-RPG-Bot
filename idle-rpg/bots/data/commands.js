@@ -2,7 +2,7 @@ const moment = require('moment');
 const Space = require('../modules/Space');
 const Crypto = require('../modules/Crypto');
 const Urban = require('../modules/Urban');
-const maps = require('../../game/data/maps');
+const maps = require('../../game/v1/data/maps');
 const { commandChannel } = require('../../../settings');
 
 const commands = [

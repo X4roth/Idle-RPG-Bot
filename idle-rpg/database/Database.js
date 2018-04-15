@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { playerSchema, newPlayerObj } = require('./schemas/player');
 const { mongoDBUri } = require('../../settings');
-const Map = require('../game/utils/Map');
+const Map = require('../game/v1/utils/Map');
 const enumHelper = require('../utils/enumHelper');
 
 const Player = mongoose.model('Player', playerSchema);

@@ -1,7 +1,7 @@
-const Database = require('../database/Database');
-const enumHelper = require('../utils/enumHelper');
+const Database = require('../../database/Database');
+const enumHelper = require('../../utils/enumHelper');
 const Event = require('./utils/Event');
-const { multiplier } = require('../../settings');
+const { multiplier } = require('../../../settings');
 const globalSpells = require('./data/globalSpells');
 
 /**

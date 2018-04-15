@@ -1,11 +1,11 @@
-const enumHelper = require('../../utils/enumHelper');
+const enumHelper = require('../../../utils/enumHelper');
 const Battle = require('../utils/Battle');
 const Monster = require('../utils/Monster');
 const Item = require('../utils/Item');
 const Inventory = require('../utils/Inventory');
 const Spell = require('../utils/Spell');
 const events = require('../data/events');
-const { errorLog } = require('../../utils/logger');
+const { errorLog } = require('../../../utils/logger');
 const Map = require('../utils/Map');
 
 class Event {

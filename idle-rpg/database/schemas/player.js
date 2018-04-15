@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const mapSchema = require('./map');
-const Map = require('../../game/utils/Map');
+const Map = require('../../game/v1/utils/Map');
 const { equipment } = require('../../utils/enumHelper');
 const Helper = require('../../utils/Helper');
 
