@@ -1,76 +1,79 @@
 const BaseGame = require('../core/BaseGame');
+const maps = require('../v1/data/maps');
 
 class Map extends BaseGame {
 
-  moveToRandomMap(selectedPlayer) {
-    const movement = this.randomBetween(0, 3);
-    const mapSize = maps[maps.length - 1].coords;
+  moveToRandomMap(player) {
+    return this.randomBetween(0, 3)
+      .then((movement) => {
+        const mapSize = maps[maps.length - 1].coords;
 
-    switch (movement) {
-      case 0:
-        // UP - Move down if at edge
-        if (selectedPlayer.map.coords[1] === 0) {
-          selectedPlayer.map.coords[1]++;
-          return {
-            map: this.getMapByCoords(selectedPlayer.map.coords),
-            direction: 'South'
-          };
+        switch (movement) {
+          case 0:
+            // UP - Move down if at edge
+            if (player.map.coords[1] === 0) {
+              player.map.coords[1]++;
+              return {
+                map: this.getMapByCoords(player.map.coords),
+                direction: 'South'
+              };
+            }
+
+            player.map.coords[1]--;
+            return {
+              map: this.getMapByCoords(player.map.coords),
+              direction: 'North'
+            };
+
+          case 1:
+            // Down - Move up if at edge
+            if (player.map.coords[1] === mapSize[1]) {
+              player.map.coords[1]--;
+              return {
+                map: this.getMapByCoords(player.map.coords),
+                direction: 'North'
+              };
+            }
+
+            player.map.coords[1]++;
+            return {
+              map: this.getMapByCoords(player.map.coords),
+              direction: 'South'
+            };
+
+          case 2:
+            // Right - Move left if at edge
+            if (player.map.coords[0] === mapSize[0]) {
+              player.map.coords[0]--;
+              return {
+                map: this.getMapByCoords(player.map.coords),
+                direction: 'West'
+              };
+            }
+
+            player.map.coords[0]++;
+            return {
+              map: this.getMapByCoords(player.map.coords),
+              direction: 'East'
+            };
+
+          case 3:
+            // Left - Move right if at edge
+            if (player.map.coords[0] === 0) {
+              player.map.coords[0]++;
+              return {
+                map: this.getMapByCoords(player.map.coords),
+                direction: 'East'
+              };
+            }
+
+            player.map.coords[0]--;
+            return {
+              map: this.getMapByCoords(player.map.coords),
+              direction: 'West'
+            };
         }
-
-        selectedPlayer.map.coords[1]--;
-        return {
-          map: this.getMapByCoords(selectedPlayer.map.coords),
-          direction: 'North'
-        };
-
-      case 1:
-        // Down - Move up if at edge
-        if (selectedPlayer.map.coords[1] === mapSize[1]) {
-          selectedPlayer.map.coords[1]--;
-          return {
-            map: this.getMapByCoords(selectedPlayer.map.coords),
-            direction: 'North'
-          };
-        }
-
-        selectedPlayer.map.coords[1]++;
-        return {
-          map: this.getMapByCoords(selectedPlayer.map.coords),
-          direction: 'South'
-        };
-
-      case 2:
-        // Right - Move left if at edge
-        if (selectedPlayer.map.coords[0] === mapSize[0]) {
-          selectedPlayer.map.coords[0]--;
-          return {
-            map: this.getMapByCoords(selectedPlayer.map.coords),
-            direction: 'West'
-          };
-        }
-
-        selectedPlayer.map.coords[0]++;
-        return {
-          map: this.getMapByCoords(selectedPlayer.map.coords),
-          direction: 'East'
-        };
-
-      case 3:
-        // Left - Move right if at edge
-        if (selectedPlayer.map.coords[0] === 0) {
-          selectedPlayer.map.coords[0]++;
-          return {
-            map: this.getMapByCoords(selectedPlayer.map.coords),
-            direction: 'East'
-          };
-        }
-
-        selectedPlayer.map.coords[0]--;
-        return {
-          map: this.getMapByCoords(selectedPlayer.map.coords),
-          direction: 'West'
-        };
-    }
+      });
   }
 
   getMapByCoords(coords) {

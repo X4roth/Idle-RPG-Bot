@@ -10,10 +10,13 @@ class Message extends BaseMessage {
   }
 
   generateMovementMessage(data) {
-    const { updatedPlayer, previousMap, newMap } = data;
-    const eventMsg = `${this.generatePlayerName(updatedPlayer)} decided to head \`${newMap.direction}\` from \`${previousMap.name}\` and arrived in \`${newMap.map.name}\`.`;
-    return this.Database.savePlayer(updatedPlayer)
-      .then(this.Promise.resolve({ updatedPlayer, eventMsg }));
+    return new Promise((resolve) => {
+      const { updatedPlayer, previousMap, newMap } = data;
+      return this.Database.savePlayer(updatedPlayer)
+        .then(() => this.generatePlayerName(updatedPlayer))
+        .then(playerName => `${playerName} decided to head \`${newMap.direction}\` from \`${previousMap.name}\` and arrived in \`${newMap.map.name}\`.`)
+        .then(eventMsg => resolve({ updatedPlayer, eventMsg }));
+    });
   }
 
 }

@@ -1,21 +1,17 @@
-const Promise = require('bluebird');
-
 class BaseLogger {
 
-  constructor() {
-    this.Promise = Promise;
-  }
-
   log(player, log, eventType) {
-    if (player[eventType].length === 99) {
-      player[eventType].shift();
-    }
-    player[eventType].push({
-      event: msg,
-      timeStamp: new Date().getTime()
-    });
+    return new Promise((resolve) => {
+      if (player[eventType].length === 99) {
+        player[eventType].shift();
+      }
+      player[eventType].push({
+        event: log,
+        timeStamp: new Date().getTime()
+      });
 
-    return this.Promise.resolve(player);
+      return resolve(player);
+    });
   }
 
 }

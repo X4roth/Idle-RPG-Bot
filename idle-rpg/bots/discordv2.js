@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const fs = require('fs');
+const util = require('util');
 
 const Game = require('../game/v2/Game');
 const Event = require('../game/v2/Event');
@@ -11,7 +12,11 @@ const logger = new Logger(message);
 const event = new Event(logger);
 const game = new Game(event);
 
+const Helper = require('../game/v2/utils/Helper');
+const CommandParser = require('./utils/CommandParser');
 const { mockPlayers } = require('../utils/enumHelper');
+
+const commandParser = new CommandParser(Helper);
 
 const {
   actionWebHookId,
@@ -53,6 +58,12 @@ const movementHook = new Discord.WebhookClient(
   webHookOptions
 );
 
+const hooks = {
+  actionHook,
+  movementHook,
+  discordBot
+};
+
 let minTimer = (minimalTimer * 1000) * 60;
 let maxTimer = (maximumTimer * 1000) * 60;
 const tickInMinutes = 2;
@@ -79,7 +90,7 @@ const processDetails = () => {
 
   console.log('------------');
   console.log(`\n\nHeap Usage:\n  RSS: ${(memoryUsage.rss / 1048576).toFixed(2)}MB\n  HeapTotal: ${(memoryUsage.heapTotal / 1048576).toFixed(2)}MB\n  HeapUsed: ${(memoryUsage.heapUsed / 1048576).toFixed(2)}MB`);
-  console.log(`Current Up Time: ${helper.secondsToTimeFormat(Math.floor(process.uptime()))}\n\n`);
+  console.log(`Current Up Time: ${Helper.secondsToTimeFormat(Math.floor(process.uptime()))}\n\n`);
   console.log('------------');
 };
 
@@ -115,7 +126,7 @@ const heartBeat = () => {
           index === array.findIndex(p => (
             p.discordId === player.discordId
           ) && discordOfflinePlayers.findIndex(offlinePlayer => (offlinePlayer.discordId === player.discordId)) === -1));
-      onlinePlayerList.forEach((player) => discordOfflinePlayers.filter((offPlayer) => offPlayer.discordId === player.discordId));
+      onlinePlayerList.forEach(player => discordOfflinePlayers.filter(offPlayer => offPlayer.discordId === player.discordId));
     }
   }
 
@@ -127,11 +138,11 @@ const heartBeat = () => {
 
   onlinePlayerList.forEach((player) => {
     if (!player.timer) {
-      const playerTimer = helper.randomBetween(minTimer, maxTimer);
+      console.log(player.nextTimer);
       player.timer = setTimeout(() => {
-        game.selectEvent(hooks, player, onlinePlayerList);
+        player.nextTimer = game.selectEvent({ hooks, player, onlinePlayerList, minTimer, maxTimer });
         delete player.timer;
-      }, playerTimer);
+      }, player.nextTimer ? player.nextTimer : Math.floor(Math.random() * maxTimer) + minTimer);
     }
   });
 
@@ -172,7 +183,7 @@ discordBot.on('message', (message) => {
       });
   }
 
-  commandParser.parseUserCommand(game, discordBot, hook, message);
+  commandParser.parseUserCommand(game, discordBot, hooks, message);
 });
 
 if (streamChannelId && process.env.NODE_ENV.includes('production')) {

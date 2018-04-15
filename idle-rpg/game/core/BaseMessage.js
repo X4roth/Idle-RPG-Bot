@@ -1,21 +1,17 @@
-const Promise = require('bluebird');
-
 class BaseMessage {
 
-  constructor() {
-    this.Promise = Promise;
-  }
-
   generatePlayerName(player, isAction) {
-    if (
-      player.isMentionInDiscord === 'off'
-      || player.isMentionInDiscord === 'action' && !isAction
-      || player.isMentionInDiscord === 'move' && isAction
-    ) {
-      return `\`${player.name}\``;
-    }
+    return new Promise((resolve) => {
+      if (
+        player.isMentionInDiscord === 'off'
+        || player.isMentionInDiscord === 'action' && !isAction
+        || player.isMentionInDiscord === 'move' && isAction
+      ) {
+        return resolve(`\`${player.name}\``);
+      }
 
-    return `<@!${player.discordId}>`;
+      return resolve(`<@!${player.discordId}>`);
+    });
   }
 
 }

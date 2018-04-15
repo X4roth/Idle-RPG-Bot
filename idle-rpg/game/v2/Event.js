@@ -1,4 +1,5 @@
 const BaseGame = require('../core/BaseGame');
+const Map = require('./Map');
 
 // All logic applied here
 class Event extends BaseGame {
@@ -12,9 +13,8 @@ class Event extends BaseGame {
 
   moveEvent(player) {
     const previousMap = player.map;
-    const newMap = this.Map.moveToRandomMap(player);
-
-    return this.logger.logMovement({ player, previousMap, newMap });
+    return this.Map.moveToRandomMap(player)
+      .then(newMap => this.logger.logMovement({ player, previousMap, newMap }));
   }
 
   attackEvent() {
