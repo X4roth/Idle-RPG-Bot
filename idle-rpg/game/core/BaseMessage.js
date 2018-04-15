@@ -1,3 +1,5 @@
+const enumHelper = require('../../utils/enumHelper');
+
 class BaseMessage {
 
   generatePlayerName(player, isAction) {
@@ -12,6 +14,14 @@ class BaseMessage {
 
       return resolve(`<@!${player.discordId}>`);
     });
+  }
+
+  setImportantMessage(message) {
+    return `\`\`\`css\n${message}\`\`\``;
+  }
+
+  generateGenderString(player, word) {
+    return enumHelper.genders[player.gender] ? enumHelper.genders[player.gender][word] : word;
   }
 
 }

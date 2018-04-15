@@ -6,11 +6,20 @@ class BaseGame {
     this.Promise = Promise;
   }
 
-  sendMovementMessage(hooks, player, msg) {
+  sendMovementMessage(hooks, msg) {
     if (msg.toLowerCase().includes('pyddur')) {
       msg = msg.replace(new RegExp('<@!pyddur>', 'g'), '\`Pyddur, God Of Beer\`');
     }
     return hooks.movementHook.send(msg)
+      .catch(err => console.log(err));
+  }
+
+  sendPvpLostMessage(hooks, msg) {
+    if (msg.toLowerCase().includes('pyddur')) {
+      msg = msg.replace(new RegExp('<@!pyddur>', 'g'), '\`Pyddur, God Of Beer\`');
+    }
+    return hooks.actionHook.send(msg.eventMsg)
+      .then(hooks.actionHook.send(msg.stealMsg))
       .catch(err => console.log(err));
   }
 

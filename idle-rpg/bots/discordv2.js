@@ -140,7 +140,8 @@ const heartBeat = () => {
     if (!player.timer) {
       console.log(player.nextTimer);
       player.timer = setTimeout(() => {
-        player.nextTimer = game.selectEvent({ hooks, player, onlinePlayerList, minTimer, maxTimer });
+        game.selectEvent({ hooks, player, onlinePlayerList, minTimer, maxTimer })
+          .then(newTimer => player.nextTimer = newTimer);
         delete player.timer;
       }, player.nextTimer ? player.nextTimer : Math.floor(Math.random() * maxTimer) + minTimer);
     }
