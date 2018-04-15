@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const { playerSchema, newPlayerObj } = require('./schemas/player');
-const { mongoDBUri } = require('../../settings');
-const Map = require('../game/v1/utils/Map');
+const { mongoDBUri, starterTown } = require('../../settings');
 const enumHelper = require('../utils/enumHelper');
 
 const Player = mongoose.model('Player', playerSchema);
@@ -46,10 +45,6 @@ function disconnect() {
 }
 
 class Database {
-
-  constructor(Helper) {
-    this.MapClass = new Map(Helper);
-  }
 
   createNewPlayer(discordId, name) {
     connect();
@@ -210,7 +205,7 @@ class Database {
             lost: 0,
             total: 0
           },
-          map: MapClass.getRandomTown(),
+          map: starterTown,
           level: 1,
           gold: {
             current: 0,

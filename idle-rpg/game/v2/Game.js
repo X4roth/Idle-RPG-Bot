@@ -1,5 +1,4 @@
 const BaseGame = require('../core/BaseGame');
-const Helper = require('./utils/Helper');
 
 class Game extends BaseGame {
 
@@ -9,15 +8,16 @@ class Game extends BaseGame {
     this.event = event;
   }
 
-  selectEvent(selectedPlayer) {
+  selectEvent(hooks, player, onlinePlayerList) {
     const randomEvent = Helper.randomBetween();
-    switch (randomEvent) {
+    switch (0) {
       case 0:
-        break;
+        return this.event.moveEvent(player)
+          .then(({ updatedPlayer, eventMsg }) => this.sendMovementMessage(updatedPlayer, eventMsg));
       case 1:
-        break;
+        return this.event.attackEvent();
       case 2:
-        break;
+        return this.event.luckEvent();
     }
   }
 
