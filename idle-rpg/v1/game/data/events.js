@@ -1,5 +1,5 @@
 const enumHelper = require('../../utils/enumHelper');
-const { pvpLevelRestriction } = require('../../../settings');
+const { pvpLevelRestriction } = require('../../../../settings');
 const { errorLog } = require('../../utils/logger');
 
 function pveMessageFormat(Helper, results, selectedPlayer, playerMaxHealth, multiplier) {

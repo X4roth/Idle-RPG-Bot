@@ -2,7 +2,7 @@ const fs = require('fs');
 const seedrandom = require('seedrandom');
 const enumHelper = require('../utils/enumHelper');
 const { moveLog, actionLog, errorLog, infoLog } = require('../utils/logger');
-const { battleDebug, eventDebug, guildID } = require('../../settings');
+const { battleDebug, eventDebug, guildID } = require('../../../settings');
 const messages = require('../game/data/messages');
 
 const RNG = seedrandom();

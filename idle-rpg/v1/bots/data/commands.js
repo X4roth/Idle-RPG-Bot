@@ -4,7 +4,7 @@ const Crypto = require('../modules/Crypto');
 const Urban = require('../modules/Urban');
 const maps = require('../../game/data/maps');
 const spells = require('../../game/data/globalSpells');
-const { commandChannel } = require('../../../settings');
+const { commandChannel } = require('../../../../settings');
 
 const commands = [
   // RPG COMMANDS

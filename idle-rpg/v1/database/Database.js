@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { mongoDBUri } = require('../../settings');
+const { mongoDBUri } = require('../../../settings');
 const Map = require('../game/utils/Map');
 const enumHelper = require('../utils/enumHelper');
 

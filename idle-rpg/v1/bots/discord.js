@@ -21,7 +21,7 @@ const {
   minimalTimer,
   maximumTimer,
   guildID
-} = require('../../settings');
+} = require('../../../settings');
 
 const webHookOptions = {
   apiRequestMethod: 'sequential',

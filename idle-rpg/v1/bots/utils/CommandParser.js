@@ -1,5 +1,5 @@
 const commands = require('../data/commands');
-const { botOperator, commandChannel } = require('../../../settings');
+const { botOperator, commandChannel } = require('../../../../settings');
 const { commandLog } = require('../../utils/logger');
 const moment = require('moment');
 

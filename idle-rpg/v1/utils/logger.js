@@ -1,7 +1,7 @@
 const bunyan = require('bunyan');
 const path = require('path');
 const RotatingFileStream = require('bunyan-rotating-file-stream');
-const { rootPath } = require('../../settings');
+const { rootPath } = require('../../../settings');
 
 const logger = {
   infoLog: bunyan.createLogger({

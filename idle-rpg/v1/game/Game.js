@@ -3,7 +3,7 @@ const enumHelper = require('../utils/enumHelper');
 const Event = require('./utils/Event');
 const { errorLog } = require('../utils/logger');
 const globalSpells = require('./data/globalSpells');
-const { guildID, leaderboardChannelId, announcementChannelId } = require('../../settings');
+const { guildID, leaderboardChannelId, announcementChannelId } = require('../../../settings');
 const { newQuest } = require('../database/schemas/quest');
 
 /**
